@@ -1,9 +1,13 @@
 package com.demo.studentmanage.service.impl;
 
 import com.demo.studentmanage.dto.SchoolScoreDto;
+import com.demo.studentmanage.dto.TeacherSubjectDto;
 import com.demo.studentmanage.dto.converter.SchoolScoreConverter;
-import com.demo.studentmanage.mapper.SchoolScoreMapper;
+import com.demo.studentmanage.mapper.StudentScoreMapper;
+import com.demo.studentmanage.mapper.TeacherSubjectMapper;
 import com.demo.studentmanage.service.SchoolScoreService;
+import com.demo.studentmanage.service.StudentScoreService;
+import com.demo.studentmanage.service.TeacherScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,42 +22,45 @@ import java.util.stream.Collectors;
 public class SchoolScoreServiceImpl implements SchoolScoreService {
 
     @Autowired
-    private SchoolScoreMapper schoolScoreMapper;
+    private StudentScoreMapper studentScoreMapper;
+
+    @Autowired
+    private TeacherSubjectMapper teacherSubjectMapper;
 
     @Override
     public List<SchoolScoreDto> listSubjectAvgScorePage(SchoolScoreDto schoolScoreDto) {
-        return schoolScoreMapper.listSubjectAvgScore(schoolScoreDto)
+        return studentScoreMapper.listSubjectAvgScore(schoolScoreDto)
                 .stream().map(SchoolScoreConverter::convertModelToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<SchoolScoreDto> listSubjectMaxScorePage(SchoolScoreDto schoolScoreDto) {
-        return schoolScoreMapper.listSubjectMaxScore(schoolScoreDto)
+        return studentScoreMapper.listSubjectMaxScore(schoolScoreDto)
                 .stream().map(SchoolScoreConverter::convertModelToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<SchoolScoreDto> listSubjectMinScorePage(SchoolScoreDto schoolScoreDto) {
-        return schoolScoreMapper.listSubjectMinScore(schoolScoreDto)
+        return studentScoreMapper.listSubjectMinScore(schoolScoreDto)
                 .stream().map(SchoolScoreConverter::convertModelToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<SchoolScoreDto> listTeacherSubjectAvgScorePage(SchoolScoreDto schoolScoreDto) {
-        return schoolScoreMapper.listTeacherSubjectAvgScore(schoolScoreDto)
+        return teacherSubjectMapper.listTeacherSubjectAvgScore(schoolScoreDto)
                 .stream().map(SchoolScoreConverter::convertModelToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<SchoolScoreDto> listTeacherSubjectMaxScorePage(SchoolScoreDto schoolScoreDto) {
-        return schoolScoreMapper.listTeacherSubjectMaxScore(schoolScoreDto)
+        return teacherSubjectMapper.listTeacherSubjectMaxScore(schoolScoreDto)
                 .stream().map(SchoolScoreConverter::convertModelToDto).collect(Collectors.toList());
 
     }
 
     @Override
     public List<SchoolScoreDto> listTeacherSubjectMinScorePage(SchoolScoreDto schoolScoreDto) {
-        return schoolScoreMapper.listTeacherSubjectMinScore(schoolScoreDto)
+        return teacherSubjectMapper.listTeacherSubjectMinScore(schoolScoreDto)
                 .stream().map(SchoolScoreConverter::convertModelToDto).collect(Collectors.toList());
 
     }

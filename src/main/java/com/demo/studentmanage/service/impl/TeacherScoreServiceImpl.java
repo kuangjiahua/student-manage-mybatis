@@ -2,7 +2,6 @@ package com.demo.studentmanage.service.impl;
 
 import com.demo.studentmanage.dto.TeacherSubjectDto;
 import com.demo.studentmanage.dto.converter.TeacherSubjectConverter;
-import com.demo.studentmanage.mapper.SchoolScoreMapper;
 import com.demo.studentmanage.mapper.TeacherSubjectMapper;
 import com.demo.studentmanage.model.TeacherSubject;
 import com.demo.studentmanage.service.TeacherScoreService;
@@ -22,24 +21,22 @@ public class TeacherScoreServiceImpl implements TeacherScoreService {
     @Autowired
     private TeacherSubjectMapper teacherSubjectMapper;
 
-    @Autowired
-    private SchoolScoreMapper schoolScoreMapper;
 
     @Override
     public List<TeacherSubjectDto> listAvgScorePage(TeacherSubjectDto teacherSubjectDto) {
-        return schoolScoreMapper.listSubjectAvgScoreForTeacher(teacherSubjectDto)
+        return teacherSubjectMapper.listSubjectAvgScoreForTeacher(teacherSubjectDto)
                 .stream().map(TeacherSubjectConverter::convertModelToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<TeacherSubjectDto> listMaxScorePage(TeacherSubjectDto teacherSubjectDto) {
-        return schoolScoreMapper.listSubjectMaxScoreForTeacher(teacherSubjectDto)
+        return teacherSubjectMapper.listSubjectMaxScoreForTeacher(teacherSubjectDto)
                 .stream().map(TeacherSubjectConverter::convertModelToDto).collect(Collectors.toList());
     }
 
     @Override
     public List<TeacherSubjectDto> listMinScorePage(TeacherSubjectDto teacherSubjectDto) {
-        return schoolScoreMapper.listSubjectMinScoreForTeacher(teacherSubjectDto)
+        return teacherSubjectMapper.listSubjectMinScoreForTeacher(teacherSubjectDto)
                 .stream().map(TeacherSubjectConverter::convertModelToDto).collect(Collectors.toList());
 
     }

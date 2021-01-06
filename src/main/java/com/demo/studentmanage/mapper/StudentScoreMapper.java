@@ -1,7 +1,9 @@
 package com.demo.studentmanage.mapper;
 
+import com.demo.studentmanage.dto.SchoolScoreDto;
 import com.demo.studentmanage.dto.StudentScoreDto;
 import com.demo.studentmanage.model.StudentScore;
+import com.demo.studentmanage.model.exclude.SchoolScore;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -56,4 +58,26 @@ public interface StudentScoreMapper {
      * @return
      */
     int deleteStudentScore(@Param("id") Integer id);
+
+    /**
+     * 获取学年各科平均分
+     * @param schoolScoreDto
+     * @return
+     */
+    List<SchoolScore> listSubjectAvgScore(@Param("schoolScore") SchoolScoreDto schoolScoreDto);
+
+    /**
+     * 获取学年各科最高分
+     * @param schoolScoreDto
+     * @return
+     */
+    List<SchoolScore> listSubjectMaxScore(@Param("schoolScore") SchoolScoreDto schoolScoreDto);
+
+    /**
+     * 获取学年各科最低分
+     * @param schoolScoreDto
+     * @return
+     */
+    List<SchoolScore> listSubjectMinScore(@Param("schoolScore") SchoolScoreDto schoolScoreDto);
+
 }

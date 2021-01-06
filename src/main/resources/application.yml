@@ -14,5 +14,5 @@ spring:
 
 mybatis:
   config-location: classpath:mybatis-config.xml
-  mapper-locations: classpath:com/demo/studentmanage/mapper/mybatis/*.xml
+  mapper-locations: classpath:mybatis/*.xml
   type-aliases-package: com.demo.studentmanage.model

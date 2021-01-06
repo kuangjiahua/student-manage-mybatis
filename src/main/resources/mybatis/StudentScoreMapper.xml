@@ -9,6 +9,12 @@
         <result column="student_id" property="studentId" jdbcType="INTEGER" />
         <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
     </resultMap>
+
+    <resultMap id="SchoolScoreResultMap" type="com.demo.studentmanage.model.exclude.SchoolScore">
+        <result column="score" property="score" jdbcType="INTEGER" />
+        <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+        <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    </resultMap>
     
     <select  id="listScorePage" resultMap="BaseResultMap" parameterType="com.demo.studentmanage.dto.StudentScoreDto">
         SELECT score, subject_id FROM score
@@ -48,4 +54,25 @@
     <delete id="deleteStudentScore" parameterType="java.lang.Integer">
         DELETE FROM score WHERE id = #{id}
     </delete>
+
+    <select id="listSubjectAvgScore" resultMap="SchoolScoreResultMap" parameterType="com.demo.studentmanage.model.exclude.SchoolScore">
+        SELECT AVG(score) as score ,subject_id FROM score
+        WHERE school_year = #{schoolScore.schoolYear}
+        GROUP BY subject_id
+        LIMIT #{schoolScore.start}, #{schoolScore.size}
+    </select>
+
+    <select id="listSubjectMaxScore" resultMap="SchoolScoreResultMap" parameterType="com.demo.studentmanage.model.exclude.SchoolScore">
+        SELECT MAX(score) as score ,subject_id FROM score
+        WHERE school_year = #{schoolScore.schoolYear}
+        GROUP BY subject_id
+        LIMIT #{schoolScore.start}, #{schoolScore.size}
+    </select>
+
+    <select id="listSubjectMinScore" resultMap="SchoolScoreResultMap" parameterType="com.demo.studentmanage.model.exclude.SchoolScore">
+        SELECT MIN(score) as score ,subject_id FROM score
+        WHERE school_year = #{schoolScore.schoolYear}
+        GROUP BY subject_id
+        LIMIT #{schoolScore.start}, #{schoolScore.size}
+    </select>
 </mapper>
