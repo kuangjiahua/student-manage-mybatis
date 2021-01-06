@@ -11,14 +11,39 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface TeacherSubjectMapper {
 
+    /**
+     * 根据id查询教师学科关联
+     * @param id
+     * @return
+     */
     TeacherSubject findById(@Param("id") Integer id);
 
+    /**
+     * 根据条件查询教师学科关联
+     * @param dto
+     * @return
+     */
     TeacherSubject findByCondition(@Param("teacherSubject") TeacherSubjectDto dto);
 
+    /**
+     * 保存教师学科关联
+     * @param dto
+     * @return
+     */
     int saveTeacherSubject(@Param("teacherSubject") TeacherSubjectDto dto);
 
+    /**
+     * 更新教师学科关联
+     * @param dto
+     * @return
+     */
     int updateTeacherSubject(@Param("teacherSubject") TeacherSubjectDto dto);
 
+    /**
+     * 删除教师学科关联
+     * @param id
+     * @return
+     */
     int deleteTeacherSubject(@Param("id") Integer id);
 
 
