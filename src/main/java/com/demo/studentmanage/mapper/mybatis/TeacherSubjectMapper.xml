@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.studentmanage.mapper.TeacherSubjectMapper">
+
+    <resultMap id="TeacherSubjectMap" type="com.demo.studentmanage.model.TeacherSubject">
+        <id column="id" property="id" javaType="INTEGER" />
+        <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+        <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+        <result column="school_year" property="schoolYear" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="findById" resultMap="TeacherSubjectMap" parameterType="com.demo.studentmanage.dto.TeacherSubjectDto">
+        SELECT id FROM teacher_subject WHERE id = #{id}
+    </select>
+
+    <select id="findByCondition" resultMap="TeacherSubjectMap" parameterType="com.demo.studentmanage.dto.TeacherSubjectDto">
+        SELECT id FROM teacher_subject
+        WHERE teacher_id = #{teacherSubject.teacherId}
+        AND subject_id = #{teacherSubject.subjectId}
+        AND school_year = #{teacherSubject.schoolYear}
+    </select>
+
+    <insert id="saveTeacherSubject" parameterType="com.demo.studentmanage.dto.TeacherSubjectDto">
+        INSERT INTO teacher_subject
+        (teacher_id, subject_id, school_year)
+        values
+        (#{teacherSubject.teacherId}, #{teacherSubject.subjectId}, #{teacherSubject.schoolYear})
+    </insert>
+
+    <update id="updateTeacherSubject" parameterType="com.demo.studentmanage.dto.TeacherSubjectDto">
+        UPDATE teacher_subject
+        set teacher_id = #{teacherSubject.teacherId},
+            subject_id = #{teacherSubject.subjectId},
+            school_year = #{teacherSubject.schoolYear}
+        WHERE id = #{teacherSubject.id}
+    </update>
+
+    <delete id="deleteTeacherSubject" parameterType="java.lang.Integer">
+        DETELE FROM teacher_subject where id = #{id}
+    </delete>
+</mapper>
