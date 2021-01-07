@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.studentmanage.mapper.ScoreMapper">
+
+    <resultMap id="BaseResultMap" type="com.demo.studentmanage.model.Score">
+        <id column="id" property="id" javaType="INTEGER"/>
+        <result column="score" property="score" jdbcType="INTEGER" />
+        <result column="student_id" property="studentId" jdbcType="INTEGER" />
+        <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <resultMap id="ScoreResultMap" type="com.demo.studentmanage.model.exclude.ScoreResult">
+        <result column="score" property="score" jdbcType="DOUBLE" />
+        <result column="student_id" property="studentId" javaType="INTEGER"/>
+        <result column="school_year" property="schoolYear" javaType="STRING"/>
+        <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+        <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="listStudentScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT score, subject_id FROM score
+        WHERE student_id = #{studentId}
+        AND school_year = #{schoolYear}
+        LIMIT #{start}, #{size}
+    </select>
+
+    <update id="update" parameterType="com.demo.studentmanage.model.Score">
+        UPDATE score SET score = #{score}
+        WHERE student_id = #{studentId}
+        AND subject_id = #{subjectId}
+        AND school_year = #{schoolYear}
+    </update>
+
+    <insert id="save" parameterType="com.demo.studentmanage.model.StudentSubject">
+        INSERT INTO score
+        (student_id, subject_id, school_year)
+        values (#{studentId}, #{subjectId}, #{schoolYear})
+    </insert>
+
+    <select id="listSubjectAvgScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT AVG(score) as score ,subject_id FROM score
+        WHERE school_year = #{schoolYear}
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listSubjectMaxScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MAX(score) as score ,subject_id FROM score
+        WHERE school_year = #{schoolYear}
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listSubjectMinScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(score) as score ,subject_id FROM score
+        WHERE school_year = #{schoolYear}
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listSubjectAvgScoreWithinYears" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(score) as score ,subject_id FROM score
+        WHERE school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listSubjectMaxScoreWithinYears" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(score) as score ,subject_id, school_year FROM score
+        WHERE school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listSubjectMinScoreWithinYears" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(score) as score ,subject_id FROM score
+        WHERE school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listBatchStudentScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT score ,subject_id, student_id, school_year FROM score
+        WHERE school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND student_id IN
+        <foreach item="item" index="index" collection="studentIdList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listTeacherAvgScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT AVG(a.score) as score, a.subject_id, b.teacher_id
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year = #{schoolYear}
+        GROUP BY subject_id, teacher_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listTeacherMaxScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MAX(a.score) as score, a.subject_id, b.teacher_id
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year = #{schoolYear}
+        GROUP BY subject_id, teacher_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listTeacherMinScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(a.score) as score, a.subject_id, b.teacher_id
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year = #{schoolYear}
+        GROUP BY subject_id, teacher_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listBatchSubjectTeacherAvgScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(a.score) as score, a.subject_id, b.teacher_id, school_year
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id, teacher_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listBatchSubjectTeacherMaxScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(a.score) as score, a.subject_id, b.teacher_id, school_year
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id, teacher_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listBatchSubjectTeacherMinScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(a.score) as score, a.subject_id, b.teacher_id, school_year
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id, teacher_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listBatchTeacherAvgScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT AVG(a.score) as score, a.subject_id, b.teacher_id, a.school_year
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND teacher_id IN
+        <foreach item="item" index="index" collection="teacherIdList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id, teacher_id, school_year
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listBatchTeacherMaxScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MAX(a.score) as score, a.subject_id, b.teacher_id, a.school_year
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND teacher_id IN
+        <foreach item="item" index="index" collection="teacherIdList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id, teacher_id, school_year
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listBatchTeacherMinScore" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(a.score) as score, a.subject_id, b.teacher_id, a.school_year
+        FROM  score a INNER JOIN  teacher_subject b  ON a.subject_id = b.subject_id
+        WHERE a.school_year IN
+        <foreach item="item" index="index" collection="schoolYearList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND teacher_id IN
+        <foreach item="item" index="index" collection="teacherIdList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY subject_id, teacher_id, school_year
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listAvgScoreByTeacher" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT AVG(a.score) as score, a.subject_id
+        FROM score a INNER JOIN teacher_subject b  ON a.subject_id = a.subject_id
+        WHERE b.teacher_id = #{teacherId} AND a.school_year = #{schoolYear}
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listMaxScoreByTeacher" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MAX(a.score) as score, a.subject_id
+        FROM score a INNER JOIN teacher_subject b  ON a.subject_id = a.subject_id
+        WHERE b.teacher_id = #{teacherId} AND a.school_year = #{schoolYear}
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="listMinScoreByTeacher" resultMap="ScoreResultMap" parameterType="com.demo.studentmanage.model.query.ScoreQuery">
+        SELECT MIN(a.score) as score, a.subject_id
+        FROM score a INNER JOIN teacher_subject b  ON a.subject_id = a.subject_id
+        WHERE b.teacher_id = #{teacherId} AND a.school_year = #{schoolYear}
+        GROUP BY subject_id
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="read" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT id, subject_id, score FROM score
+        WHERE id = #{id}
+    </select>
+
+    <select id="readBySubjectIdAndStudentIdAndSchoolYear" resultMap="BaseResultMap" parameterType="com.demo.studentmanage.model.StudentSubject">
+        SELECT id, subject_id, subject_id, score FROM score
+        WHERE student_id = #{studentId}
+        AND subject_id = #{subjectId}
+        AND school_year = #{schoolYear}
+        limit 1
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM score WHERE id = #{id}
+    </delete>
+
+
+
+
+
+
+</mapper>

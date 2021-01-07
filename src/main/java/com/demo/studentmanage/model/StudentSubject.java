@@ -3,21 +3,24 @@ package com.demo.studentmanage.model;
 import lombok.Data;
 
 /**
- * 表名：score 学生分数表
  * @author kuangjiahua
- * @date   2021/01/042021/01/04
+ * @date   2021/01/07
  */
 @Data
-public class StudentScore {
+public class StudentSubject {
 
     private Integer id;
 
     private Integer studentId;
 
-    private String schoolYear;
-
     private Integer subjectId;
 
-    private Double score;
+    private String schoolYear;
+
+    private Student student;
+
+    private Subject subject;
 
 }
+
+

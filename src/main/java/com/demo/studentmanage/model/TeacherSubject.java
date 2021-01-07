@@ -5,9 +5,8 @@ import lombok.Data;
 import javax.persistence.Column;
 
 /**
- * 表名：teacher_subject 教师-学科关联表
  * @author kuangjiahua
- * @date   2021/01/06
+ * @date   2021/01/07
  */
 @Data
 public class TeacherSubject {
@@ -19,4 +18,8 @@ public class TeacherSubject {
     private Integer subjectId;
 
     private String schoolYear;
+
+    private Teacher teacher;
+
+    private Subject subject;
 }

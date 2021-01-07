@@ -3,16 +3,20 @@ package com.demo.studentmanage.model.exclude;
 import lombok.Data;
 
 /**
- * 分数查询实体类
  * @author kuangjiahua
- * @date   2021/01/6
+ * @date   2021/01/07
  */
 @Data
-public class SchoolScore {
-
-    private Integer teacherId;
+public class ScoreResult {
 
     private Double score;
 
     private Integer subjectId;
+
+    private Integer teacherId;
+
+    private Integer studentId;
+
+    private String schoolYear;
+
 }
