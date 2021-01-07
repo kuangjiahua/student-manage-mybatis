@@ -3,7 +3,6 @@ package com.demo.studentmanage.mapper;
 import com.demo.studentmanage.model.Score;
 import com.demo.studentmanage.model.StudentSubject;
 import com.demo.studentmanage.model.exclude.ScoreResult;
-import com.demo.studentmanage.model.query.ScoreBatchQuery;
 import com.demo.studentmanage.model.query.ScoreQuery;
 
 import java.util.List;

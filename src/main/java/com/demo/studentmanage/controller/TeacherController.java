@@ -30,7 +30,7 @@ public class TeacherController {
     @GetMapping("nhsoft.scoreManageDemo.teacherSubjectScore.batchList")
     public ApiResponse listBatchTeacherSubjectScore(ScoreQueryDTO scoreQueryDTO) {
         ScoreQuery scoreQuery = ScoreQueryConverter.convertDtoToModel(scoreQueryDTO);
-        List<ScoreResultDTO> results = teacherService.listTeacherSubjectScore(scoreQuery)
+        List<ScoreResultDTO> results = teacherService.listBatchTeacherSubjectScore(scoreQuery)
                 .stream().map(ScoreQueryConverter::convertModelToDto).collect(Collectors.toList());
         return new ApiResponse(results);
     }

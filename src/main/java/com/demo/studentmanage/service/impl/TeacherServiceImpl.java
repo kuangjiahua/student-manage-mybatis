@@ -33,11 +33,11 @@ public class TeacherServiceImpl implements TeacherService {
     public List<ScoreResult> listBatchTeacherSubjectScore(ScoreQuery scoreQuery) {
         List<ScoreResult> scoreResultList = new ArrayList<>();
         if(scoreQuery.getQueryType().equals(QueryTypeEnum.AVG.getCode())){
-            scoreResultList = scoreMapper.listTeacherAvgScore(scoreQuery);
+            scoreResultList = scoreMapper.listBatchSubjectTeacherAvgScore(scoreQuery);
         } else if(scoreQuery.getQueryType().equals(QueryTypeEnum.MAX.getCode())){
-            scoreResultList = scoreMapper.listTeacherMaxScore(scoreQuery);
+            scoreResultList = scoreMapper.listBatchSubjectTeacherMaxScore(scoreQuery);
         } else if(scoreQuery.getQueryType().equals(QueryTypeEnum.MIN.getCode())){
-            scoreResultList = scoreMapper.listTeacherMinScore(scoreQuery);
+            scoreResultList = scoreMapper.listBatchSubjectTeacherMinScore(scoreQuery);
         }
         return scoreResultList;
     }
