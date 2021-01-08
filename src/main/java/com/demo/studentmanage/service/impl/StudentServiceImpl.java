@@ -28,6 +28,11 @@ public class StudentServiceImpl implements StudentService {
     private SubjectMapper subjectMapper;
 
     @Override
+    public List<Student> listStudent(Student student) {
+        return studentMapper.list(student);
+    }
+
+    @Override
     public List<ScoreResult> listScoreByOrder(ScoreQuery scoreQuery) {
         return scoreMapper.listScoreByOrder(scoreQuery);
     }

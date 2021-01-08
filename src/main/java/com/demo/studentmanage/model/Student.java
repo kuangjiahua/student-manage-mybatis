@@ -7,7 +7,7 @@ import lombok.Data;
  * @date   2021/01/07
  */
 @Data
-public class Student {
+public class Student extends PageRequest{
 
     private Integer id;
 

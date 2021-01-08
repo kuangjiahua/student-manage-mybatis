@@ -5,6 +5,7 @@ import com.demo.studentmanage.dto.common.ApiResponseDTO;
 import com.demo.studentmanage.dto.converter.ScoreQueryConverter;
 import com.demo.studentmanage.dto.converter.StudentConverter;
 import com.demo.studentmanage.model.Score;
+import com.demo.studentmanage.model.Student;
 import com.demo.studentmanage.model.StudentSubject;
 import com.demo.studentmanage.query.ScoreQuery;
 import com.demo.studentmanage.service.StudentService;
@@ -23,10 +24,18 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @ApiOperation("查询学生学年各科成绩(支持自定义排序)")
+    @ApiOperation("查询学生列表(支持自定义排序)")
     @GetMapping("nhsoft.scoreManageDemo.student.list")
-    public ApiResponseDTO listStudentScore(ScoreQueryDTO scoreQueryDTO){
-        ScoreQuery scoreQuery = ScoreQueryConverter.convertDtoToModel(scoreQueryDTO);
+    public ApiResponseDTO listStudent(StudentDTO studentDTO){
+        Student student = StudentConverter.convertDtoToModel(studentDTO);
+        List<StudentDTO> results = studentService.listStudent(student)
+                .stream().map(StudentConverter::convertModelToDto).collect(Collectors.toList());
+        return new ApiResponseDTO(results);
+    }
+
+    @ApiOperation("查询学生学年各科成绩(支持自定义排序)")
+    @GetMapping("nhsoft.scoreManageDemo.student.listScore")
+    public ApiResponseDTO listStudentScore(ScoreQuery scoreQuery){
         List<ScoreResultDTO> results = studentService.listScoreByOrder(scoreQuery)
                 .stream().map(ScoreQueryConverter::convertModelToDto).collect(Collectors.toList());
         return new ApiResponseDTO(results);
@@ -35,8 +44,7 @@ public class StudentController {
 
     @ApiOperation("多个学年各科平均分/最高分/最低分查询")
     @GetMapping("nhsoft.scoreManageDemo.student.listSchoolYearsScore")
-    public ApiResponseDTO listBatchYearScore(ScoreQueryDTO scoreBatchDTO){
-        ScoreQuery scoreQuery = ScoreQueryConverter.convertDtoToModel(scoreBatchDTO);
+    public ApiResponseDTO listBatchYearScore(ScoreQuery scoreQuery){
         List<ScoreResultDTO> results = studentService.listBatchYearScore(scoreQuery)
                 .stream().map(ScoreQueryConverter::convertModelToDto).collect(Collectors.toList());
         return new ApiResponseDTO(results);
@@ -44,8 +52,7 @@ public class StudentController {
 
     @ApiOperation("某学年各科平均分/最高分/最低分查询")
     @GetMapping("nhsoft.scoreManageDemo.student.listSubjectScore")
-    public ApiResponseDTO listSchoolStudentScore(ScoreQueryDTO scoreQueryDTO){
-        ScoreQuery scoreQuery = ScoreQueryConverter.convertDtoToModel(scoreQueryDTO);
+    public ApiResponseDTO listSchoolStudentScore(ScoreQuery scoreQuery){
         List<ScoreResultDTO> results = studentService.listStudentScore(scoreQuery)
                 .stream().map(ScoreQueryConverter::convertModelToDto).collect(Collectors.toList());
         return new ApiResponseDTO(results);
@@ -53,17 +60,15 @@ public class StudentController {
 
     @ApiOperation("多个学生多学年各科目分数查询")
     @GetMapping("nhsoft.scoreManageDemo.student.listStudentsScore")
-    public ApiResponseDTO listBatchStudentScore(ScoreQueryDTO scoreQueryDTO){
-        ScoreQuery scoreQuery = ScoreQueryConverter.convertDtoToModel(scoreQueryDTO);
+    public ApiResponseDTO listBatchStudentScore(ScoreQuery scoreQuery){
         List<ScoreResultDTO> results = studentService.listBatchStudentScore(scoreQuery)
                 .stream().map(ScoreQueryConverter::convertModelToDto).collect(Collectors.toList());
         return new ApiResponseDTO(results);
     }
 
     @ApiOperation("查询学生各科分数")
-    @GetMapping("nhsoft.scoreManageDemo.student.listScore")
-    public ApiResponseDTO listStudentScorePage(ScoreQueryDTO scoreQueryDTO){
-        ScoreQuery scoreQuery = ScoreQueryConverter.convertDtoToModel(scoreQueryDTO);
+    @GetMapping("nhsoft.scoreManageDemo.student.listStudentSubjectScore")
+    public ApiResponseDTO listStudentScorePage(ScoreQuery scoreQuery){
         List<ScoreResultDTO> results = studentService.listScorePage(scoreQuery)
                 .stream().map(ScoreQueryConverter::convertModelToDto).collect(Collectors.toList());
         return new ApiResponseDTO(results);

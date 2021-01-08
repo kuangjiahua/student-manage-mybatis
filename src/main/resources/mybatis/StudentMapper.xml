@@ -16,4 +16,10 @@
     <insert id="save" parameterType="com.demo.studentmanage.model.Student">
         INSERT INTO student (name) values (#{name})
     </insert>
+
+    <select id="list" resultMap="BaseResultMap" parameterType="com.demo.studentmanage.model.Student">
+        SELECT id, name FROM student
+        ORDER BY #{orderLine}  ${orderType}
+        LIMIT #{start}, #{size}
+    </select>
 </mapper>

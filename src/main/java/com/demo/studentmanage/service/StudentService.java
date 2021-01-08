@@ -1,6 +1,7 @@
 package com.demo.studentmanage.service;
 
 import com.demo.studentmanage.model.Score;
+import com.demo.studentmanage.model.Student;
 import com.demo.studentmanage.model.StudentSubject;
 import com.demo.studentmanage.model.exclude.ScoreResult;
 import com.demo.studentmanage.query.ScoreQuery;
@@ -13,6 +14,13 @@ import java.util.List;
  * @date   2021/01/07
  */
 public interface StudentService {
+
+    /**
+     * 查询学生信息分页(可自定义排序)
+     * @param student
+     * @return
+     */
+    List<Student> listStudent(Student student);
 
 
     /**

@@ -1,5 +1,6 @@
 package com.demo.studentmanage.dto.converter;
 import com.demo.studentmanage.dto.ScoreDTO;
+import com.demo.studentmanage.dto.StudentDTO;
 import com.demo.studentmanage.dto.StudentSubjectDTO;
 import com.demo.studentmanage.model.Score;
 import com.demo.studentmanage.model.Student;
@@ -26,4 +27,19 @@ public class StudentConverter {
         BeanUtils.copyProperties(scoreDTO, score);
         return score;
     }
+
+    public static Student convertDtoToModel(StudentDTO studentDTO){
+        Student student = new Student();
+        BeanUtils.copyProperties(studentDTO, student);
+        return student;
+    }
+
+    public static StudentDTO convertModelToDto(Student student){
+        StudentDTO studentDTO = new StudentDTO();
+        BeanUtils.copyProperties(student, studentDTO);
+        return studentDTO;
+    }
+
+
+
 }
