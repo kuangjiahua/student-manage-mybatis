@@ -28,7 +28,7 @@ public class StudentController {
     @GetMapping("nhsoft.scoreManageDemo.student.list")
     public ApiResponseDTO listStudent(StudentDTO studentDTO){
         Student student = StudentConverter.convertDtoToModel(studentDTO);
-        List<StudentDTO> results = studentService.listStudent(student)
+        List<StudentDTO> results = studentService.list(student)
                 .stream().map(StudentConverter::convertModelToDto).collect(Collectors.toList());
         return new ApiResponseDTO(results);
     }

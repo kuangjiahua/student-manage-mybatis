@@ -20,7 +20,7 @@ public interface StudentService {
      * @param student
      * @return
      */
-    List<Student> listStudent(Student student);
+    List<Student> list(Student student);
 
 
     /**
