@@ -3,7 +3,7 @@ package com.demo.studentmanage.service;
 import com.demo.studentmanage.model.Score;
 import com.demo.studentmanage.model.StudentSubject;
 import com.demo.studentmanage.model.exclude.ScoreResult;
-import com.demo.studentmanage.model.query.ScoreQuery;
+import com.demo.studentmanage.query.ScoreQuery;
 
 import java.util.List;
 
@@ -13,6 +13,15 @@ import java.util.List;
  * @date   2021/01/07
  */
 public interface StudentService {
+
+
+    /**
+     * 查询学生学年各科成绩(支持自定义排序)
+     * @param ScoreQuery
+     * @return
+     */
+    List<ScoreResult> listScoreByOrder(ScoreQuery ScoreQuery);
+
     /**
      * 查询多个年份分数分数平均分/最高分/最低分
      * @param scoreQuery

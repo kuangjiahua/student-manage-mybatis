@@ -1,5 +1,5 @@
 package com.demo.studentmanage.service.impl;
-import com.demo.studentmanage.common.QueryTypeEnum;
+import com.demo.studentmanage.constant.QueryTypeConstant;
 import com.demo.studentmanage.mapper.ScoreMapper;
 import com.demo.studentmanage.mapper.StudentMapper;
 import com.demo.studentmanage.mapper.SubjectMapper;
@@ -8,12 +8,11 @@ import com.demo.studentmanage.model.Student;
 import com.demo.studentmanage.model.StudentSubject;
 import com.demo.studentmanage.model.Subject;
 import com.demo.studentmanage.model.exclude.ScoreResult;
-import com.demo.studentmanage.model.query.ScoreQuery;
+import com.demo.studentmanage.query.ScoreQuery;
 import com.demo.studentmanage.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +28,18 @@ public class StudentServiceImpl implements StudentService {
     private SubjectMapper subjectMapper;
 
     @Override
+    public List<ScoreResult> listScoreByOrder(ScoreQuery scoreQuery) {
+        return scoreMapper.listScoreByOrder(scoreQuery);
+    }
+
+    @Override
     public List<ScoreResult> listBatchYearScore(ScoreQuery scoreQuery) {
         List<ScoreResult> scoreResultList = new ArrayList<>();
-        if(scoreQuery.getQueryType().equals(QueryTypeEnum.AVG.getCode())){
+        if(scoreQuery.getQueryType().equals(QueryTypeConstant.AVG)){
             scoreResultList = scoreMapper.listSubjectAvgScoreWithinYears(scoreQuery);
-        } else if(scoreQuery.getQueryType().equals(QueryTypeEnum.MAX.getCode())){
+        } else if(scoreQuery.getQueryType().equals(QueryTypeConstant.MAX)){
             scoreResultList = scoreMapper.listSubjectMaxScoreWithinYears(scoreQuery);
-        } else if(scoreQuery.getQueryType().equals(QueryTypeEnum.MIN.getCode())){
+        } else if(scoreQuery.getQueryType().equals(QueryTypeConstant.MIN)){
             scoreResultList = scoreMapper.listSubjectMinScoreWithinYears(scoreQuery);
         }
         return scoreResultList;
@@ -44,11 +48,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<ScoreResult> listStudentScore(ScoreQuery scoreQuery) {
         List<ScoreResult> scoreResultList = new ArrayList<>();
-        if(scoreQuery.getQueryType().equals(QueryTypeEnum.AVG.getCode())){
+        if(scoreQuery.getQueryType().equals(QueryTypeConstant.AVG)){
             scoreResultList = scoreMapper.listSubjectAvgScore(scoreQuery);
-        } else if(scoreQuery.getQueryType().equals(QueryTypeEnum.MAX.getCode())){
+        } else if(scoreQuery.getQueryType().equals(QueryTypeConstant.MAX)){
             scoreResultList = scoreMapper.listSubjectMaxScore(scoreQuery);
-        } else if(scoreQuery.getQueryType().equals(QueryTypeEnum.MIN.getCode())){
+        } else if(scoreQuery.getQueryType().equals(QueryTypeConstant.MIN)){
             scoreResultList = scoreMapper.listSubjectMinScore(scoreQuery);
         }
         return scoreResultList;

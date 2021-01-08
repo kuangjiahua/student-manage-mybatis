@@ -6,14 +6,13 @@ import com.demo.studentmanage.dto.common.ApiResponse;
 import com.demo.studentmanage.dto.converter.ScoreQueryConverter;
 import com.demo.studentmanage.dto.converter.TeacherConverter;
 import com.demo.studentmanage.model.TeacherSubject;
-import com.demo.studentmanage.model.query.ScoreQuery;
+import com.demo.studentmanage.query.ScoreQuery;
 import com.demo.studentmanage.service.TeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

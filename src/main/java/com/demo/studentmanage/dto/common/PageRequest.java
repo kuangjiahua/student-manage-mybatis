@@ -14,5 +14,6 @@ public class PageRequest {
 
     private int size;
 
+    private int orderLine;
 
 }

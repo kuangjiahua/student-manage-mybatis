@@ -1,9 +1,7 @@
 package com.demo.studentmanage.service;
-
-import com.demo.studentmanage.model.Score;
 import com.demo.studentmanage.model.TeacherSubject;
 import com.demo.studentmanage.model.exclude.ScoreResult;
-import com.demo.studentmanage.model.query.ScoreQuery;
+import com.demo.studentmanage.query.ScoreQuery;
 
 import java.util.List;
 

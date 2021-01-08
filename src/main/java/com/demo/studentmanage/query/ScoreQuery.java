@@ -1,4 +1,4 @@
-package com.demo.studentmanage.model.query;
+package com.demo.studentmanage.query;
 
 import com.demo.studentmanage.dto.common.PageRequest;
 import lombok.Data;

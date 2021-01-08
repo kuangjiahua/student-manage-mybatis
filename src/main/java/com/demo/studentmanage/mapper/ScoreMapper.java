@@ -3,7 +3,7 @@ package com.demo.studentmanage.mapper;
 import com.demo.studentmanage.model.Score;
 import com.demo.studentmanage.model.StudentSubject;
 import com.demo.studentmanage.model.exclude.ScoreResult;
-import com.demo.studentmanage.model.query.ScoreQuery;
+import com.demo.studentmanage.query.ScoreQuery;
 
 import java.util.List;
 
@@ -12,6 +12,13 @@ import java.util.List;
  * @date   2021/01/07
  */
 public interface ScoreMapper {
+
+    /**
+     * 自定义排序查询学生分数
+     * @param scoreQuery
+     * @return
+     */
+    List<ScoreResult> listScoreByOrder(ScoreQuery scoreQuery);
 
     /**
      * 保存学生分数

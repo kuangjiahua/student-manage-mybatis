@@ -6,7 +6,7 @@ import com.demo.studentmanage.dto.converter.ScoreQueryConverter;
 import com.demo.studentmanage.dto.converter.StudentConverter;
 import com.demo.studentmanage.model.Score;
 import com.demo.studentmanage.model.StudentSubject;
-import com.demo.studentmanage.model.query.ScoreQuery;
+import com.demo.studentmanage.query.ScoreQuery;
 import com.demo.studentmanage.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +22,16 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @ApiOperation("查询学生学年各科成绩(支持自定义排序)")
+    @GetMapping("nhsoft.scoreManageDemo.subjectScore.orderList")
+    public ApiResponse listStudentScore(ScoreQueryDTO scoreQueryDTO){
+        ScoreQuery scoreQuery = ScoreQueryConverter.convertDtoToModel(scoreQueryDTO);
+        List<ScoreResultDTO> results = studentService.listScoreByOrder(scoreQuery)
+                .stream().map(ScoreQueryConverter::convertModelToDto).collect(Collectors.toList());
+        return new ApiResponse(results);
+    }
+
 
     @ApiOperation("多个学年各科平均分/最高分/最低分查询")
     @GetMapping("nhsoft.scoreManageDemo.batchYearScore.batchList")

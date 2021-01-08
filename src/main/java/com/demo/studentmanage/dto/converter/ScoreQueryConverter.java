@@ -3,7 +3,7 @@ package com.demo.studentmanage.dto.converter;
 import com.demo.studentmanage.dto.ScoreQueryDTO;
 import com.demo.studentmanage.dto.ScoreResultDTO;
 import com.demo.studentmanage.model.exclude.ScoreResult;
-import com.demo.studentmanage.model.query.ScoreQuery;
+import com.demo.studentmanage.query.ScoreQuery;
 import org.springframework.beans.BeanUtils;
 
 public class ScoreQueryConverter {
