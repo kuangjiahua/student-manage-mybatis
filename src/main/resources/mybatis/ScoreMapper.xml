@@ -23,7 +23,7 @@
         SELECT score, subject_id FROM score
         WHERE student_id = #{studentId}
         AND school_year = #{schoolYear}
-        ORDER BY #{orderLine} DESC
+        ORDER BY #{orderLine}  ${orderType}
         LIMIT #{start}, #{size}
     </select>
 

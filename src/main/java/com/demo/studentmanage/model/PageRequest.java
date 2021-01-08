@@ -1,4 +1,4 @@
-package com.demo.studentmanage.dto.common;
+package com.demo.studentmanage.model;
 
 import lombok.Data;
 
@@ -16,5 +16,7 @@ public class PageRequest {
 
     //自定义排序列号
     private int orderLine;
+
+    private String orderType;
 
 }

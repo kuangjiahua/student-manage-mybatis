@@ -1,6 +1,6 @@
 package com.demo.studentmanage.dto;
 
-import com.demo.studentmanage.dto.common.PageRequest;
+import com.demo.studentmanage.model.PageRequest;
 import lombok.Data;
 
 import java.util.List;
